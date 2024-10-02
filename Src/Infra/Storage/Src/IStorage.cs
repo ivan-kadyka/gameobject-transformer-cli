@@ -25,7 +25,7 @@ public interface IStorage
     /// <param name="token">Optional cancellation token</param>
     /// <exception cref="StorageException">raised when failed to load data</exception>
     /// <returns>The generic data loaded from the storage.<see langword="true"/> if data is successfully loaded, <see langword="false"/> otherwise.</returns>
-    Task<T> Load<T>(string key, CancellationToken token = default);
+    Task<T?> Load<T>(string key, CancellationToken token = default);
         
     // also possible methods for public API:
     // 1) Task Remove(string key);

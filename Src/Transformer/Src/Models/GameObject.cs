@@ -18,7 +18,7 @@ public class GameObject : IGameObject
         Name = name;
     }
 
-    public GameObject()
+    public GameObject(GameObjectDto dto)
     {
         Name = string.Empty;
         _transform = new Transform();

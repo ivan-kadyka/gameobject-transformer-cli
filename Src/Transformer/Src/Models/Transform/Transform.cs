@@ -25,4 +25,15 @@ public class Transform : ITransform
     private Vector3 _position = Vector3.zero;
     private Quaternion _rotation = Quaternion.identity;
     private Vector3 _scale = Vector3.one;
+
+    public Transform()
+    {
+    }
+
+    public Transform(TransformDto dto)
+    {
+        _position = dto.Position;
+        _rotation = dto.Rotation;
+        _scale = dto.Scale;
+    }
 }

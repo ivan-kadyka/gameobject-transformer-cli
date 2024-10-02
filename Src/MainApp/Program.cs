@@ -1,6 +1,7 @@
 ﻿using Serialization.Json;
 using Storage.FileSystem;
 using Transformer;
+using Transformer.Generator;
 
 public static class Program
 {
@@ -8,9 +9,11 @@ public static class Program
     {
         var jsonDtoFormatter = new JsonDtoFormatter();
         var fileSystemStorage = new FileSystemStorage(jsonDtoFormatter);
-        var transformer = new GameObjectGenerator(fileSystemStorage);
 
-        await transformer.Convert("testData.json");
+        var gameObjectGenerator = new GameObjectGenerator();
+        var transformer = new GameObjectTransformer(fileSystemStorage, gameObjectGenerator);
+
+        await transformer.Convert("testData.json", "outputData.json");
         
     }
 }
