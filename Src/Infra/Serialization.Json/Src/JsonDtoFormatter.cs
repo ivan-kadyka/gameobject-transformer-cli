@@ -1,4 +1,5 @@
 using Newtonsoft.Json;
+using Serialization.Json.Convertors;
 
 namespace Serialization.Json;
 
@@ -11,8 +12,18 @@ public class JsonDtoFormatter : IDtoFormatter
         // example how to possible setup settings
         _settings = new JsonSerializerSettings()
         {
-            NullValueHandling = NullValueHandling.Ignore
+            NullValueHandling = NullValueHandling.Ignore,
+            Formatting = Formatting.Indented // Enables pretty-printing
         };
+        
+        var converters = new JsonConverter[]
+        {
+            new Vector3Converter(),
+            new QuaternionConverter()
+        };
+
+        foreach (var converter in converters)
+            _settings.Converters.Add(converter);
     }
         
     public string Serialize<T>(T value)

@@ -8,9 +8,9 @@ public static class Program
     {
         var jsonDtoFormatter = new JsonDtoFormatter();
         var fileSystemStorage = new FileSystemStorage(jsonDtoFormatter);
-        var transformer = new GameObjectTransformer(fileSystemStorage);
+        var transformer = new GameObjectGenerator(fileSystemStorage);
 
-        await transformer.Execute();
+        await transformer.Convert("testData.json");
         
     }
 }
