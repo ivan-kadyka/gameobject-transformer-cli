@@ -4,6 +4,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MainApp", "Src\MainApp\Main
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Transformer", "Src\Transformer\Transformer.csproj", "{C24F79C7-8871-4B45-94B5-9BE8F1C6E282}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infra", "Infra", "{2AEAF78B-0255-4F6A-B64B-C16CDB3D41BC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Serialization", "Src\Infra\Serialization\Serialization.csproj", "{7751882D-9C3F-4025-B08C-7AFA49347B02}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Serialization.Json", "Src\Infra\Serialization.Json\Serialization.Json.csproj", "{C7768FBA-E293-474D-8A90-CCB6AA385BF6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +24,17 @@ Global
 		{C24F79C7-8871-4B45-94B5-9BE8F1C6E282}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C24F79C7-8871-4B45-94B5-9BE8F1C6E282}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C24F79C7-8871-4B45-94B5-9BE8F1C6E282}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7751882D-9C3F-4025-B08C-7AFA49347B02}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7751882D-9C3F-4025-B08C-7AFA49347B02}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7751882D-9C3F-4025-B08C-7AFA49347B02}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7751882D-9C3F-4025-B08C-7AFA49347B02}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C7768FBA-E293-474D-8A90-CCB6AA385BF6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C7768FBA-E293-474D-8A90-CCB6AA385BF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C7768FBA-E293-474D-8A90-CCB6AA385BF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C7768FBA-E293-474D-8A90-CCB6AA385BF6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{7751882D-9C3F-4025-B08C-7AFA49347B02} = {2AEAF78B-0255-4F6A-B64B-C16CDB3D41BC}
+		{C7768FBA-E293-474D-8A90-CCB6AA385BF6} = {2AEAF78B-0255-4F6A-B64B-C16CDB3D41BC}
 	EndGlobalSection
 EndGlobal
