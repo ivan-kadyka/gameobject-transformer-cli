@@ -2,7 +2,6 @@ using Newtonsoft.Json;
 
 namespace Serialization.Json;
 
-
 public class JsonDtoFormatter : IDtoFormatter
 {
     private readonly JsonSerializerSettings _settings;

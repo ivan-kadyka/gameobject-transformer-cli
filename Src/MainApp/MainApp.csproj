@@ -9,6 +9,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Infra\Serialization.Json\Serialization.Json.csproj" />
+      <ProjectReference Include="..\Infra\Storage.FileSystem\Storage.FileSystem.csproj" />
       <ProjectReference Include="..\Transformer\Transformer.csproj" />
     </ItemGroup>
 

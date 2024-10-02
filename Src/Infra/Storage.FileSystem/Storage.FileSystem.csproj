@@ -4,15 +4,11 @@
         <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
-        <LangVersion>12</LangVersion>
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="Unity3D.UnityEngine" Version="2018.3.5.1" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <ProjectReference Include="..\Infra\Storage\Storage.csproj" />
+      <ProjectReference Include="..\Serialization\Serialization.csproj" />
+      <ProjectReference Include="..\Storage\Storage.csproj" />
     </ItemGroup>
 
 </Project>
