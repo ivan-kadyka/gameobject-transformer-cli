@@ -1,13 +1,13 @@
-﻿using MainApp;
-using MainApp.Options;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Transformer;
+using Transformer.CLI;
+using Transformer.CLI.Options;
 
 public static class Program
 {
     public static async Task Main(string[] args)
     {
-        //TODO: pass option via CLI args
+        //TODO: pass options via CLI args
         IOptions options = new Options
         {
             Input = "testData.json",

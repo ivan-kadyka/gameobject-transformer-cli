@@ -22,7 +22,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\Src\MainApp\MainApp.csproj" />
+      <ProjectReference Include="..\..\Src\Transformer.CLI\Transformer.CLI.csproj" />
     </ItemGroup>
 
     <ItemGroup>

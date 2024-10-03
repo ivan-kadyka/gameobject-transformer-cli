@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MainApp", "Src\MainApp\MainApp.csproj", "{69DA6805-C4F7-4E13-8A79-F1B903D686B5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Transformer.CLI", "Src\Transformer.CLI\Transformer.CLI.csproj", "{69DA6805-C4F7-4E13-8A79-F1B903D686B5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Transformer", "Src\Transformer\Transformer.csproj", "{C24F79C7-8871-4B45-94B5-9BE8F1C6E282}"
 EndProject
@@ -16,7 +16,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Storage.FileSystem", "Src\I
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{4AFB3ECC-B41C-415E-A115-CC837B666663}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Tests", "Tests\App.Tests\App.Tests.csproj", "{FB771C44-BC04-4DA8-AA8C-D26AB959AA37}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Transformer.Tests", "Tests\Transformer.Tests\Transformer.Tests.csproj", "{FB771C44-BC04-4DA8-AA8C-D26AB959AA37}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

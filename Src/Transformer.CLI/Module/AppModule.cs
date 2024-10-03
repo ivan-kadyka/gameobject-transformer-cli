@@ -9,7 +9,7 @@ using Storage.FileSystem;
 using Transformer;
 using Transformer.Generator;
 
-namespace MainApp.Module;
+namespace Transformer.CLI.Module;
 
 public static class AppModule
 {

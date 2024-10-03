@@ -1,7 +1,7 @@
-using MainApp.Module;
+using Transformer.CLI.Module;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace MainApp;
+namespace Transformer.CLI;
 
 internal class AppServiceProvider : IServiceProvider, IDisposable
 {

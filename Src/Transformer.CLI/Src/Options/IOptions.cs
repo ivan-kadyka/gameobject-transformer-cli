@@ -1,4 +1,4 @@
-namespace MainApp.Options;
+namespace Transformer.CLI.Options;
 
 public interface IOptions
 {

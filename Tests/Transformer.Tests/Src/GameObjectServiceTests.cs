@@ -1,11 +1,11 @@
-using MainApp;
+using Transformer.CLI;
 using Microsoft.Extensions.DependencyInjection;
 using Storage;
 using Transformer;
 using Transformer.Exceptions;
 using Transformer.Model;
 
-namespace App.Tests;
+namespace Transformer.Tests;
 
 public class GameObjectServiceTests
 {
