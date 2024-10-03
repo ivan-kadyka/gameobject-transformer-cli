@@ -1,6 +1,9 @@
 using MainApp;
 using Microsoft.Extensions.DependencyInjection;
+using Storage;
 using Transformer;
+using Transformer.Exceptions;
+using Transformer.Model;
 
 namespace App.Tests;
 
@@ -32,13 +35,30 @@ public class GameObjectServiceTests
     {
         // Arrange
         var gameObjectService =  _appServiceProvider.GetRequiredService<IGameObjectService>();
+        var storage = _appServiceProvider.GetRequiredService<IStorage>();
+        var output = $"{OutputDirectory}/output1.json";
         
         // Act
+        await gameObjectService.Transform("TestData/testData.json", output);
         
-        await gameObjectService.Transform("TestData/testData.json", $"{OutputDirectory}/output1.json");
+        // Assert
+        var data = await storage.Load<GameObjectsData>(output);
+        Assert.IsNotNull(data);
+    }
+    
+    
+    [Test]
+    public void Transform_UseInvalidData_ShouldBeRaisedException()
+    {
+        // Arrange
+        var gameObjectService =  _appServiceProvider.GetRequiredService<IGameObjectService>();
+        var output = $"{OutputDirectory}/output2.json";
         
-      
-        Assert.IsNotNull(gameObjectService);
+        // Act & Assert
+        Assert.ThrowsAsync<GameObjectServiceException>(async () =>
+        {
+            await gameObjectService.Transform("TestData/invalidTestData.json", output);
+        });
     }
     
     
