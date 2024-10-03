@@ -1,8 +1,10 @@
+using Microsoft.Extensions.Logging;
 using Storage;
 using Transformer.Exceptions;
 using Transformer.Generator;
 using Transformer.Model;
 using UnityEngine;
+using ILogger = Microsoft.Extensions.Logging.ILogger;
 
 namespace Transformer;
 
@@ -10,27 +12,69 @@ public class GameObjectService : IGameObjectService
 {
     private readonly IStorage _storage;
     private readonly IGameObjectFactory _gameObjectFactory;
+    private readonly ILogger _logger;
 
-    public GameObjectService(IStorage storage, IGameObjectFactory gameObjectFactory)
+    public GameObjectService(
+        IStorage storage,
+        IGameObjectFactory gameObjectFactory,
+        ILoggerFactory loggerFactory)
     {
         _storage = storage;
         _gameObjectFactory = gameObjectFactory;
+        _logger = loggerFactory.CreateLogger(nameof(GameObjectService));
     }
 
     public async Task Transform(string input, string output, CancellationToken token = default)
     {
-        var inputData = await _storage.Load<GameObjectsData>(input, token);
+        try
+        {
+            var inputData = await _storage.Load<GameObjectsData>(input, token);
 
-        if (inputData == null || inputData.GameObjects.Length == 0)
+            if (inputData == null)
+            {
+                throw new GameObjectServiceException("GameObjects not found");
+            }
+
+            token.ThrowIfCancellationRequested();
+
+            var gameObjectDtos = await Transform(inputData.GameObjects, token);
+
+            var outputData = new GameObjectsData
+            {
+                GameObjects = gameObjectDtos
+            };
+
+            token.ThrowIfCancellationRequested();
+
+            await _storage.Save(output, outputData, token);
+        }
+        catch (OperationCanceledException)
+        {
+            throw;
+        }
+        catch (GameObjectServiceException)
+        {
+            throw;
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e, "Error while transforming GameObjects");
+        }
+    }
+
+    public Task<IReadOnlyCollection<GameObjectDto>> Transform(IReadOnlyCollection<GameObjectDto> gameObjectDtos, CancellationToken token = default)
+    {
+        if (gameObjectDtos.Count == 0)
         {
             throw new GameObjectServiceException("GameObjects not found");
         }
         
-        var gameObjects = inputData.GameObjects.Select(_gameObjectFactory.Create)
+        var gameObjects = gameObjectDtos.Select(_gameObjectFactory.Create)
             .OrderBy(it => Vector3.Distance(it.Transform.Position, Vector3.zero));
-
-        var outputData = new GameObjectsData();
-        outputData.GameObjects = gameObjects.Select(it => new GameObjectDto()
+        
+        token.ThrowIfCancellationRequested();
+        
+        IReadOnlyCollection<GameObjectDto> gameObjectsDtos = gameObjects.Select(it => new GameObjectDto
         {
             Transform = new TransformDto()
             {
@@ -39,7 +83,8 @@ public class GameObjectService : IGameObjectService
                 Scale = it.Transform.Scale
             }
         }).ToArray();
-        
-        await _storage.Save(output, outputData, token);
+
+
+        return Task.FromResult(gameObjectsDtos);
     }
 }

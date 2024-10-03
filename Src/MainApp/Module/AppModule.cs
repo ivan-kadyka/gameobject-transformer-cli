@@ -1,4 +1,5 @@
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Serialization;
 using Serialization.Json;
@@ -26,11 +27,13 @@ public static class AppModule
         });
 
         services.AddTransient<IStorage, FileSystemStorage>();
-        services.AddSingleton<IGameObjectService, GameObjectService>();
-        
-        services.AddSingleton<IGameObjectFactory, GameObjectFactory>();
+     
         // possible use UnityGameObjectFactory instead of GameObjectFactory for Unity Editor
         // services.AddSingleton<IGameObjectFactory, UnityGameObjectFactory>();
+        services.AddSingleton<IGameObjectFactory, GameObjectFactory>();
+        
+        services.AddSingleton<IGameObjectService, GameObjectService>();
+        services.AddLogging(builder => builder.AddConsole());
         
         return services;
     }
