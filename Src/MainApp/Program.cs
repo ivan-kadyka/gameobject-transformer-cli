@@ -7,6 +7,7 @@ public static class Program
 {
     public static async Task Main(string[] args)
     {
+        //TODO: pass option via CLI args
         IOptions options = new Options
         {
             Input = "testData.json",

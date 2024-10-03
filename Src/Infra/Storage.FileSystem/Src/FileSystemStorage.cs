@@ -24,6 +24,9 @@ public class FileSystemStorage : IStorage
                 
             if (data != null)
                 content = _dtoFormatter.Serialize(data);
+            
+            var directory = Path.GetDirectoryName(Path.GetFullPath(key));
+            Directory.CreateDirectory(directory);
 
             await File.WriteAllTextAsync(key, content, token).ConfigureAwait(false);
         }
