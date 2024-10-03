@@ -22,8 +22,8 @@ public class GameObjectTransformer : IGameObjectTransformer
             return;
         
         var gameObjects = inputData.GameObjects.Select(it => new GameObject(it))
-            .OrderBy(it => Vector3.Distance(it.Transform.Position, Vector3.zero))
-            .ToArray();
+            .OrderBy(it => Vector3.Distance(it.Transform.Position, Vector3.zero));
+            //.ToArray();
 
         var outputData = new GameObjectsData();
         outputData.GameObjects = gameObjects.Select(it => new GameObjectDto()

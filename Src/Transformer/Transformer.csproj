@@ -8,11 +8,17 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="Unity3D.UnityEngine" Version="2018.3.5.1" />
+      <ProjectReference Include="..\Infra\Storage\Storage.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Infra\Storage\Storage.csproj" />
+      <Reference Include="UnityEngine">
+        <HintPath>..\..\3rdParty\UnityEngine.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     </ItemGroup>
 
 </Project>
