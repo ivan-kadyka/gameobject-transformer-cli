@@ -26,40 +26,28 @@ public class GameObjectService : IGameObjectService
 
     public async Task Transform(string input, string output, CancellationToken token = default)
     {
-        try
+        _logger.LogTrace($"Transforming GameObjects... input='{input}', output='{output}'");
+        
+        var inputData = await _storage.Load<GameObjectsData>(input, token);
+
+        if (inputData == null)
         {
-            var inputData = await _storage.Load<GameObjectsData>(input, token);
-
-            if (inputData == null)
-            {
-                throw new GameObjectServiceException("GameObjects not found");
-            }
-
-            token.ThrowIfCancellationRequested();
-
-            var gameObjectDtos = await Transform(inputData.GameObjects, token);
-
-            var outputData = new GameObjectsData
-            {
-                GameObjects = gameObjectDtos
-            };
-
-            token.ThrowIfCancellationRequested();
-
-            await _storage.Save(output, outputData, token);
+            throw new GameObjectServiceException("GameObjects not found");
         }
-        catch (OperationCanceledException)
+
+        token.ThrowIfCancellationRequested();
+
+        var gameObjectDtos = await Transform(inputData.GameObjects, token);
+
+        var outputData = new GameObjectsData
         {
-            throw;
-        }
-        catch (GameObjectServiceException)
-        {
-            throw;
-        }
-        catch (Exception e)
-        {
-            _logger.LogError(e, "Error while transforming GameObjects");
-        }
+            GameObjects = gameObjectDtos
+        };
+
+        token.ThrowIfCancellationRequested();
+
+        await _storage.Save(output, outputData, token);
+
     }
 
     public Task<IReadOnlyCollection<GameObjectDto>> Transform(IReadOnlyCollection<GameObjectDto> gameObjectDtos, CancellationToken token = default)
@@ -68,12 +56,12 @@ public class GameObjectService : IGameObjectService
         {
             throw new GameObjectServiceException("GameObjects not found");
         }
-        
+
         var gameObjects = gameObjectDtos.Select(_gameObjectFactory.Create)
             .OrderBy(it => Vector3.Distance(it.Transform.Position, Vector3.zero));
-        
+
         token.ThrowIfCancellationRequested();
-        
+
         IReadOnlyCollection<GameObjectDto> gameObjectsDtos = gameObjects.Select(it => new GameObjectDto
         {
             Transform = new TransformDto()
@@ -84,7 +72,8 @@ public class GameObjectService : IGameObjectService
             }
         }).ToArray();
 
-
         return Task.FromResult(gameObjectsDtos);
     }
+
+   
 }

@@ -31,8 +31,13 @@ public static class AppModule
         // possible use UnityGameObjectFactory instead of GameObjectFactory for Unity Editor
         // services.AddSingleton<IGameObjectFactory, UnityGameObjectFactory>();
         services.AddSingleton<IGameObjectFactory, GameObjectFactory>();
+        services.AddSingleton<GameObjectService>();
         
-        services.AddSingleton<IGameObjectService, GameObjectService>();
+        services.AddSingleton<IGameObjectService, GameObjectExceptionDecoratorService>(c =>
+            new GameObjectExceptionDecoratorService(
+                c.GetRequiredService<GameObjectService>(),
+            c.GetRequiredService<ILoggerFactory>()));
+        
         services.AddLogging(builder => builder.AddConsole());
         
         return services;
