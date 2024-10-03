@@ -24,11 +24,13 @@ public class FileSystemStorage : IStorage
                 
             if (data != null)
                 content = _dtoFormatter.Serialize(data);
+
+            var path = Path.GetFullPath(key);
             
-            var directory = Path.GetDirectoryName(Path.GetFullPath(key));
+            var directory = Path.GetDirectoryName(path);
             Directory.CreateDirectory(directory);
 
-            await File.WriteAllTextAsync(key, content, token).ConfigureAwait(false);
+            await File.WriteAllTextAsync(path, content, token).ConfigureAwait(false);
         }
         catch (Exception e)
         {
@@ -45,10 +47,12 @@ public class FileSystemStorage : IStorage
         {
             T data = default;
 
-            if (!File.Exists(key))
+            var path = Path.GetFullPath(key);
+            
+            if (!File.Exists(path))
                 return data;
 
-            var content = await File.ReadAllTextAsync(key, token);
+            var content = await File.ReadAllTextAsync(path, token);
 
             if (content != null)
                 data = _dtoFormatter.Deserialize<T>(content);
