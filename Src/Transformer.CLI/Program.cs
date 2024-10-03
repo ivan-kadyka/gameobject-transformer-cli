@@ -18,7 +18,7 @@ public static class Program
             }
 
             Environment.Exit(-1);
-        } 
+        }
         
         
         using (var appServiceProvider = AppServiceProvider.Create())
