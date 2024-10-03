@@ -1,6 +1,6 @@
 namespace Transformer.Model;
 
-public class GameObject : IGameObject
+internal class GameObject : IGameObject
 {
     public string Name { get; set; }
 

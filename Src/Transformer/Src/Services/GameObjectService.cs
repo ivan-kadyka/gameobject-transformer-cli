@@ -1,29 +1,30 @@
 using Storage;
+using Transformer.Generator;
 using Transformer.Model;
 using UnityEngine;
-using GameObject = Transformer.Model.GameObject;
 
 namespace Transformer;
 
-public class GameObjectTransformer : IGameObjectTransformer
+public class GameObjectService : IGameObjectService
 {
     private readonly IStorage _storage;
+    private readonly IGameObjectFactory _gameObjectFactory;
 
-    public GameObjectTransformer(IStorage storage)
+    public GameObjectService(IStorage storage, IGameObjectFactory gameObjectFactory)
     {
         _storage = storage;
+        _gameObjectFactory = gameObjectFactory;
     }
 
-    public async Task Convert(string input, string output, CancellationToken token = default)
+    public async Task Transform(string input, string output, CancellationToken token = default)
     {
         var inputData = await _storage.Load<GameObjectsData>(input, token);
         
         if (inputData == null || inputData.GameObjects.Length == 0) 
             return;
         
-        var gameObjects = inputData.GameObjects.Select(it => new GameObject(it))
+        var gameObjects = inputData.GameObjects.Select(_gameObjectFactory.Create)
             .OrderBy(it => Vector3.Distance(it.Transform.Position, Vector3.zero));
-            //.ToArray();
 
         var outputData = new GameObjectsData();
         outputData.GameObjects = gameObjects.Select(it => new GameObjectDto()
